@@ -50,7 +50,7 @@ end
 -- @function mqtt.get_ioloop
 mqtt.get_ioloop = ioloop_get
 
---- Run default ioloop for given MQTT clients or functions
+--- Run default ioloop for given MQTT clients or functions.
 -- @param ... MQTT clients or loop functions to add to ioloop
 -- @see mqtt.ioloop.get
 -- @see mqtt.ioloop.run_until_clients
@@ -65,23 +65,6 @@ function mqtt.run_ioloop(...)
 		-- end
 	end
 	return loop:run_until_clients()
-end
-
---- Run synchronous input/output loop for only one given MQTT client.
--- Provided client's connection will be opened.
--- Client reconnect feature will not work, and keep_alive too.
--- @param cl MQTT client instance to run
-function mqtt.run_sync(cl)
-	local ok, err = cl:start_connecting()
-	if not ok then
-		return false, err
-	end
-	while cl.connection do
-		ok, err = cl:_sync_iteration()
-		if not ok then
-			return false, err
-		end
-	end
 end
 
 -- export module table
