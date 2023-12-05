@@ -32,16 +32,6 @@
 
 
 
-<h2>Topics</h2>
-<ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
-  <li><strong>MIT License</strong></li>
-  <li><a href="../topics/01-installation.md.html">Installation</a></li>
-  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
-  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
-  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
-  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
-</ul>
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/mqtt.html">mqtt</a></li>
@@ -49,7 +39,7 @@
   <li><a href="../modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
   <li><a href="../modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
   <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
-  <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
+  <li><strong>mqtt.connector</strong></li>
   <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
   <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
   <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
@@ -58,6 +48,16 @@
 <ul class="nowrap">
   <li><a href="../classes/Client.html">Client</a></li>
   <li><a href="../classes/Ioloop.html">Ioloop</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -71,28 +71,29 @@
 
 <div id="content">
 
+<h1>Module <code>mqtt.connector</code></h1>
+<p>Auto detect the connector to use.</p>
+<p>
+ The different environments require different socket implementations to work
+ properly. The 'connectors' are an abstraction to facilitate that without
+ having to modify the client itself.
+<p> This module is will auto-detect the environment and return the proper
+ module from;
+<p> * <a href="../modules/mqtt.connector.nginx.html#">mqtt.connector.nginx</a> for using the non-blocking OpenResty co-socket apis
+<p> * <a href="../modules/mqtt.connector.copas.html#">mqtt.connector.copas</a> for the non-blocking Copas wrapped sockets
+<p> * <a href="../modules/mqtt.connector.luasocket.html#">mqtt.connector.luasocket</a> for LuaSocket based sockets (blocking)
+<p> Since the selection is based on a.o. packages loaded, make sure that in case
+ of using the <code>copas</code> scheduler, you require it before the <a href="../modules/mqtt.html#">mqtt</a> modules.
+<p> Since the <a href="../modules/mqtt.html#client">client</a> defaults to this module (<a href="../modules/mqtt.connector.html#">mqtt.connector</a>) there typically
+ is no need to use this directly. When implementing your own connectors,
+ the included connectors provide good examples of what to look out for.</p>
 
-<h1>MIT License</h1>
 
-<p>Copyright (c) 2018-2021 Alexander Kiranov</p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<br/>
+<br/>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
 
 
 </div> <!-- id="content" -->

@@ -32,16 +32,6 @@
 
 
 
-<h2>Topics</h2>
-<ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
-  <li><strong>MIT License</strong></li>
-  <li><a href="../topics/01-installation.md.html">Installation</a></li>
-  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
-  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
-  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
-  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
-</ul>
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/mqtt.html">mqtt</a></li>
@@ -51,13 +41,23 @@
   <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
   <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
   <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
-  <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
+  <li><strong>mqtt.connector.nginx</strong></li>
   <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/Client.html">Client</a></li>
   <li><a href="../classes/Ioloop.html">Ioloop</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -71,28 +71,33 @@
 
 <div id="content">
 
+<h1>Module <code>mqtt.connector.nginx</code></h1>
+<p>Nginx OpenResty co-sockets based connector.</p>
+<p>
+<p> This connector works with the non-blocking openresty sockets. Note that the
+ secure setting haven't been implemented yet. It will simply use defaults
+ when doing a TLS handshake.
+<p> Caveats:
+<p> * sockets cannot cross phase/context boundaries. So all client interaction
+   must be done from the timer context in which the client threads run.
+<p> * multiple threads cannot send simultaneously (simple scenarios will just
+   work)
+<p> * since the client creates a long lived connection for reading, it returns
+   upon receiving a packet, to call an event handler. The handler must return
+   swiftly, since while the handler runs the socket will not be reading.
+   Any task that might take longer than a few milliseconds should be off
+   loaded to another thread.
+<p> * Nginx timers should be short lived because memory is only released after
+   the context is destroyed. In this case we're using the fro prolonged periods
+   of time, so be aware of this and implement client restarts if required.
+<p> thanks to @irimiab: https://github.com/xHasKx/luamqtt/issues/13</p>
 
-<h1>MIT License</h1>
 
-<p>Copyright (c) 2018-2021 Alexander Kiranov</p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<br/>
+<br/>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
 
 
 </div> <!-- id="content" -->

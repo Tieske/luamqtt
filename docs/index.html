@@ -32,19 +32,36 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="modules/mqtt.html">mqtt</a></li>
-  <li><a href="modules/mqtt.client.html">mqtt.client</a></li>
-  <li><a href="modules/mqtt.ioloop.html">mqtt.ioloop</a></li>
+  <li><a href="modules/mqtt.loop.html">mqtt.loop</a></li>
+  <li><a href="modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
+  <li><a href="modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
+  <li><a href="modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
+  <li><a href="modules/mqtt.connector.html">mqtt.connector</a></li>
+  <li><a href="modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
+  <li><a href="modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
+  <li><a href="modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="classes/Client.html">Client</a></li>
+  <li><a href="classes/Ioloop.html">Ioloop</a></li>
 </ul>
 <h2>Topics</h2>
 <ul class="">
-  <li><a href="https://github.com/xHasKx/luamqtt#readme">README</a></li>
-  <li><a href="topics/LICENSE.html">LICENSE</a></li>
+  <li><a href="topics/README.md.html">README</a></li>
+  <li><a href="topics/LICENSE.html">MIT License</a></li>
+  <li><a href="topics/01-installation.md.html">Installation</a></li>
+  <li><a href="topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="topics/05-connectors.md.html">Connectors</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
   <li><a href="examples/simple.lua.html">simple.lua</a></li>
-  <li><a href="examples/sync.lua.html">sync.lua</a></li>
   <li><a href="examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></li>
+  <li><a href="examples/copas.lua.html">copas.lua</a></li>
+  <li><a href="examples/openresty.lua.html">openresty.lua</a></li>
 </ul>
 
 </div>
@@ -62,22 +79,77 @@
 		<td class="summary">MQTT module</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/mqtt.client.html">mqtt.client</a></td>
-		<td class="summary">MQTT client module</td>
+		<td class="name"  nowrap><a href="modules/mqtt.loop.html">mqtt.loop</a></td>
+		<td class="summary">Auto detect the IO loop to use.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/mqtt.ioloop.html">mqtt.ioloop</a></td>
-		<td class="summary">ioloop module</td>
+		<td class="name"  nowrap><a href="modules/mqtt.loop.copas.html">mqtt.loop.copas</a></td>
+		<td class="summary">Copas specific client handling module.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></td>
+		<td class="summary">Nginx specific client handling module.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></td>
+		<td class="summary">IOloop specific client handling module.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/mqtt.connector.html">mqtt.connector</a></td>
+		<td class="summary">Auto detect the connector to use.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/mqtt.connector.copas.html">mqtt.connector.copas</a></td>
+		<td class="summary">Copas based connector.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></td>
+		<td class="summary">Nginx OpenResty co-sockets based connector.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></td>
+		<td class="summary">LuaSocket (and LuaSec) based connector.</td>
+	</tr>
+</table>
+<h2>Classes</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="classes/Client.html">Client</a></td>
+		<td class="summary">This class contains the MQTT client implementation.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/Ioloop.html">Ioloop</a></td>
+		<td class="summary">This class contains the ioloop implementation.</td>
 	</tr>
 </table>
 <h2>Topics</h2>
 <table class="module_list">
 	<tr>
-		<td class="name"  nowrap><a href="https://github.com/xHasKx/luamqtt#readme">README.md</a></td>
+		<td class="name"  nowrap><a href="topics/README.md.html">README.md</a></td>
 		<td class="summary"></td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="topics/LICENSE.html">LICENSE</a></td>
+		<td class="summary"></td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="topics/01-installation.md.html">01-installation.md</a></td>
+		<td class="summary"></td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="topics/02-dependencies.md.html">02-dependencies.md</a></td>
+		<td class="summary"></td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="topics/03-lua_versions.md.html">03-lua_versions.md</a></td>
+		<td class="summary"></td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="topics/04-mqtt_versions.md.html">04-mqtt_versions.md</a></td>
+		<td class="summary"></td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="topics/05-connectors.md.html">05-connectors.md</a></td>
 		<td class="summary"></td>
 	</tr>
 </table>
@@ -88,11 +160,15 @@
 		<td class="summary"></td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="examples/sync.lua.html">sync.lua</a></td>
+		<td class="name"  nowrap><a href="examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></td>
 		<td class="summary"></td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></td>
+		<td class="name"  nowrap><a href="examples/copas.lua.html">copas.lua</a></td>
+		<td class="summary"></td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="examples/openresty.lua.html">openresty.lua</a></td>
 		<td class="summary"></td>
 	</tr>
 </table>
@@ -101,7 +177,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-07-09 23:06:55 </i>
+<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

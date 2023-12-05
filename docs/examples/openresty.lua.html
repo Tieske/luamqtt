@@ -35,9 +35,9 @@
 <h2>Examples</h2>
 <ul class="nowrap">
   <li><a href="../examples/simple.lua.html">simple.lua</a></li>
-  <li><strong>mqtt5-simple.lua</strong></li>
+  <li><a href="../examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></li>
   <li><a href="../examples/copas.lua.html">copas.lua</a></li>
-  <li><a href="../examples/openresty.lua.html">openresty.lua</a></li>
+  <li><strong>openresty.lua</strong></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -71,68 +71,71 @@
 
 <div id="content">
 
-    <h2>mqtt5-simple.lua</h2>
+    <h2>openresty.lua</h2>
 <pre>
-<span class="keyword">local</span> mqtt = <span class="global">require</span>(<span class="string">"mqtt"</span>)
+<span class="comment">-- runs in init_worker_by_lua phase
+</span>
+<span class="comment">-- IMPORTANT: set up logging before loading MQTT lib
+</span><span class="keyword">if</span> <span class="global">pcall</span>(<span class="global">require</span>, <span class="string">"logging.nginx"</span>) <span class="keyword">then</span>
+	<span class="comment">-- LuaLogging nginx forwarder is available
+</span>	ngx.log(ngx.INFO, <span class="string">"forwarding LuaMQTT logs to nginx log, using LuaLogging 'nginx' logger"</span>)
+	<span class="keyword">local</span> ll = <span class="global">require</span>(<span class="string">"logging"</span>)
+	ll.defaultLogger(ll.nginx()) <span class="comment">-- forward logs to nginx logs
+</span><span class="keyword">else</span>
+	ngx.log(ngx.WARN, <span class="string">"LuaLogging module 'logging.nginx' not found, it is strongly recommended to install that module. "</span>,
+		<span class="string">"See https://github.com/lunarmodules/lualogging."</span>)
+<span class="keyword">end</span>
+
+
+<span class="keyword">local</span> mqtt = <span class="global">require</span> <span class="string">"mqtt"</span>
+<span class="keyword">local</span> add_client = <span class="global">require</span>(<span class="string">"mqtt.loop"</span>).add
+
 
 <span class="comment">-- create mqtt client
 </span><span class="keyword">local</span> client = mqtt.client{
-	uri = <span class="string">"mqtt://mqtt.flespi.io"</span>,
+	<span class="comment">-- NOTE: this broker is not working sometimes; comment username = "..." below if you still want to use it
+</span>	<span class="comment">-- uri = "test.mosquitto.org",
+</span>	uri = <span class="string">"mqtts://mqtt.flespi.io"</span>,
 	<span class="comment">-- NOTE: more about flespi tokens: https://flespi.com/kb/tokens-access-keys-to-flespi-platform
 </span>	username = <span class="string">"stPwSVV73Eqw5LSv0iMXbc4EguS7JyuZR9lxU5uLxI5tiNM8ToTVqNpu85pFtJv9"</span>,
 	clean = <span class="keyword">true</span>,
-	version = mqtt.v50,
 
-	<span class="comment">-- create event handlers
+	<span class="comment">-- event handlers
 </span>	on = {
 		connect = <span class="keyword">function</span>(connack, self)
 			<span class="keyword">if</span> connack.rc ~= <span class="number">0</span> <span class="keyword">then</span>
-				<span class="global">print</span>(<span class="string">"connection to broker failed:"</span>, connack:reason_string(), connack)
 				<span class="keyword">return</span>
 			<span class="keyword">end</span>
-			<span class="global">print</span>(<span class="string">"connected:"</span>, connack) <span class="comment">-- successful connection
-</span>
-			<span class="comment">-- subscribe to test topic and publish message after it
-</span>			<span class="global">assert</span>(self:subscribe{ topic=<span class="string">"luamqtt/#"</span>, qos=<span class="number">1</span>, callback=<span class="keyword">function</span>(suback)
-				<span class="global">print</span>(<span class="string">"subscribed:"</span>, suback)
 
-				<span class="comment">-- publish test message
-</span>				<span class="global">print</span>(<span class="string">'publishing test message "hello" to "luamqtt/simpletest" topic...'</span>)
-				<span class="global">assert</span>(self:publish{
-					topic = <span class="string">"luamqtt/simpletest"</span>,
-					payload = <span class="string">"hello"</span>,
-					qos = <span class="number">1</span>,
-					properties = {
-						payload_format_indicator = <span class="number">1</span>,
-						content_type = <span class="string">"text/plain"</span>,
-					},
-					user_properties = {
-						hello = <span class="string">"world"</span>,
-					},
-				})
-			<span class="keyword">end</span>})
+			<span class="comment">-- subscribe to test topic and publish message after it
+</span>			<span class="global">assert</span>(self:subscribe {
+				topic = <span class="string">"luamqtt/#"</span>,
+				qos = <span class="number">1</span>,
+				callback = <span class="keyword">function</span>()
+					<span class="comment">-- publish test message
+</span>					<span class="global">assert</span>(self:publish{
+						topic = <span class="string">"luamqtt/simpletest"</span>,
+						payload = <span class="string">"hello"</span>,
+						qos = <span class="number">1</span>
+					})
+				<span class="keyword">end</span>
+			})
 		<span class="keyword">end</span>,
 
 		message = <span class="keyword">function</span>(msg, self)
 			<span class="global">assert</span>(self:acknowledge(msg))
 
-			<span class="global">print</span>(<span class="string">"received:"</span>, msg)
-			<span class="global">print</span>(<span class="string">"disconnecting..."</span>)
-			<span class="global">assert</span>(self:disconnect())
+			ngx.log(ngx.INFO, <span class="string">"received:"</span>, msg)
 		<span class="keyword">end</span>,
 
-		<span class="global">error</span> = <span class="keyword">function</span>(err)
-			<span class="global">print</span>(<span class="string">"MQTT client error:"</span>, err)
-		<span class="keyword">end</span>,
-	}, <span class="comment">-- close 'on', event handlers
-</span>}
+		close = <span class="keyword">function</span>(conn)
+			ngx.log(ngx.INFO, <span class="string">"MQTT conn closed:"</span>, conn.close_reason)
+		<span class="keyword">end</span>
+	}
+}
 
-
-<span class="global">print</span>(<span class="string">"created MQTT v5.0 client:"</span>, client)
-<span class="global">print</span>(<span class="string">"running ioloop for it"</span>)
-mqtt.run_ioloop(client)
-
-<span class="global">print</span>(<span class="string">"done, ioloop is stopped"</span>)</pre>
+<span class="comment">-- start the client
+</span>add_client(client)</pre>
 
 
 </div> <!-- id="content" -->

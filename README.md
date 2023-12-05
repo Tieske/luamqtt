@@ -1,3 +1,33 @@
+# This is a fork of LuaMQTT
+
+It has some serious issues when using it async, which is why this fork exists.
+
+Branches in use:
+
+- `master` is the remote development branch; [xHasKx/luamqtt](https://github.com/xHasKx/luamqtt)
+- `keepalive` is where the developement happens in this repo. It has [a PR open](https://github.com/xHasKx/luamqtt/pull/31) on
+  the remote repo. After (if ever) it gets merged, this repo will be obsolete and be removed.
+- `main` is the default branch on this repo, from where we tag and release
+  `luamqttt` (note the extra 't'), see [luarocks](https://luarocks.org/modules/tieske/luamqttt).
+
+Installing this fork is best done from LuaRocks;
+
+        luarocks install luamqttt
+
+Improvements in this fork:
+
+- decoupled runloop from the client
+- logging using lualogging
+- safe async behaviour
+- better and safer socket support
+
+Releasing:
+
+- update verion in "`const.lua`"
+- render docs
+- create new rockspec
+- commit and tag using `tX.Y.Z` (use `t` instead of `v`)
+
 # luamqtt
 
 Pure-lua MQTT v3.1.1 and v5.0 client
@@ -17,9 +47,9 @@ This library is written in **pure-lua** to provide maximum portability.
 
 # Features
 
-* Full MQTT v3.1.1 client-side support
-* Full MQTT v5.0 client-side support
-* Support for Copas, OpenResty/Nginx, and an included lightweight ioloop.
+- Full MQTT v3.1.1 client-side support
+- Full MQTT v5.0 client-side support
+- Support for Copas, OpenResty/Nginx, and an included lightweight ioloop.
 
 # Documentation
 
@@ -45,26 +75,20 @@ To run tests in this git repo you need [**busted**](https://luarocks.org/modules
 
 Prepare:
 
-```sh
-luarocks install busted
-luarocks install luacov
-luarocks install luasocket
-luarocks install luasec
-luarocks install copas
-luarocks install lualogging
-```
+    luarocks install busted
+    luarocks install luacov
+    luarocks install luasocket
+    luarocks install luasec
+    luarocks install copas
+    luarocks install lualogging
 
 Running the tests:
 
-```sh
-busted
-```
+    busted
 
 There is a script to run all tests for all supported lua versions, using [hererocks](https://github.com/mpeterv/hererocks):
 
-```sh
-./tests/run-for-all-lua-versions.sh
-```
+    ./tests/run-for-all-lua-versions.sh
 
 # Code coverage
 
@@ -72,20 +96,18 @@ Code coverage may be collected using [luacov](https://keplerproject.github.io/lu
 
 To collect code coverage stats - install luacov using luarocks and then execute:
 
-```sh
-# collect stats during tests
-busted --coverage
+    # collect stats during tests
+    busted --coverage
 
-# generate report into luacov.report.out file
-luacov
-```
+    # generate report into luacov.report.out file
+    luacov
 
 # MQTT version
 
 Currently supported is:
 
-* [MQTT v3.1.1 protocol](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/errata01/os/mqtt-v3.1.1-errata01-os-complete.html) version.
-* [MQTT v5.0 protocol](http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) version.
+- [MQTT v3.1.1 protocol](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/errata01/os/mqtt-v3.1.1-errata01-os-complete.html) version.
+- [MQTT v5.0 protocol](http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) version.
 
 Both protocols has full control packets support.
 
@@ -95,14 +117,14 @@ Standard MIT License, see LICENSE file for full text
 
 # Version bump checklist
 
-* in file `./mqtt/const.lua`: change `_VERSION` table field
-* in file `./openwrt/make-package-without-openwrt-sources.sh`: change `Version: X.Y.Z-P` in $PKG_ROOT/control
-* in file `./openwrt/Makefile`: change `PKG_VERSION:=X.Y.Z` and maybe `PKG_RELEASE:=1`
-* copy file `./luamqtt-scm-1.rockspec` to `./rockspecs/luamqtt-X.Y.Z-1.rockspec` change `local package_version = "scm"`, `local package_version = "X.Y.Z"`
-* run `./tests/run-luacheck.sh` and check output for errors
-* run `./tests/run-markdownlint.sh` and check output for errors
-* run `./tests/run-for-all-lua-versions.sh` and check output for errors
-* run `./openwrt/make-package-without-openwrt-sources.sh` and check output for errors
-* run `git commit`, `git tag vX.Y.Z`
-* run `git push`, `git push --tags`
-* upload to LuaRocks; `luarocks upload ./rockspecs/luamqtt-X.Y.Z-1.rockspec --api-key=ABCDEFGH`
+- in file `./mqtt/const.lua`: change `_VERSION` table field
+- in file `./openwrt/make-package-without-openwrt-sources.sh`: change `Version: X.Y.Z-P` in $PKG_ROOT/control
+- in file `./openwrt/Makefile`: change `PKG_VERSION:=X.Y.Z` and maybe `PKG_RELEASE:=1`
+- copy file `./luamqtt-scm-1.rockspec` to `./rockspecs/luamqtt-X.Y.Z-1.rockspec` change `local package_version = "scm"`, `local package_version = "X.Y.Z"`
+- run `./tests/run-luacheck.sh` and check output for errors
+- run `./tests/run-markdownlint.sh` and check output for errors
+- run `./tests/run-for-all-lua-versions.sh` and check output for errors
+- run `./openwrt/make-package-without-openwrt-sources.sh` and check output for errors
+- run `git commit`, `git tag vX.Y.Z`
+- run `git push`, `git push --tags`
+- upload to LuaRocks; `luarocks upload ./rockspecs/luamqtt-X.Y.Z-1.rockspec --api-key=ABCDEFGH`

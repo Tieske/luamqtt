@@ -1,0 +1,983 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>luamqtt</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Metamethods">Metamethods</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Low_level_methods">Low-level methods </a></li>
+<li><a href="#Exported_functions">Exported functions </a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>Client</strong></li>
+  <li><a href="../classes/Ioloop.html">Ioloop</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/mqtt.html">mqtt</a></li>
+  <li><a href="../modules/mqtt.loop.html">mqtt.loop</a></li>
+  <li><a href="../modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
+  <li><a href="../modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
+  <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
+  <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
+  <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
+  <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
+  <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/simple.lua.html">simple.lua</a></li>
+  <li><a href="../examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></li>
+  <li><a href="../examples/copas.lua.html">copas.lua</a></li>
+  <li><a href="../examples/openresty.lua.html">openresty.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Client</code></h1>
+<p>This class contains the MQTT client implementation.</p>
+<p></p>
+
+
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Client:__init">Client:__init (opts)</a></td>
+	<td class="summary">Create and initialize MQTT client instance.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Client:on">Client:on (events)</a></td>
+	<td class="summary">Add functions as handlers of given events.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:off">Client:off (event, func)</a></td>
+	<td class="summary">Remove given function handler for specified event.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:subscribe">Client:subscribe (opts)</a></td>
+	<td class="summary">Subscribe to specified topic.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:unsubscribe">Client:unsubscribe (opts)</a></td>
+	<td class="summary">Unsubscribe from specified topic, and calls optional callback when subscription will be removed on broker</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:publish">Client:publish (opts)</a></td>
+	<td class="summary">Publish message to broker</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:acknowledge">Client:acknowledge (msg[, rc=0[, properties[, user_properties]]])</a></td>
+	<td class="summary">Acknowledge given received message</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:disconnect">Client:disconnect ([rc=0[, properties[, user_properties]]])</a></td>
+	<td class="summary">Send DISCONNECT packet to the broker and close the connection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:shutdown">Client:shutdown (...)</a></td>
+	<td class="summary">Shuts the client down.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:auth">Client:auth ([rc=0[, properties[, user_properties]]])</a></td>
+	<td class="summary">Send AUTH packet to authenticate client on broker, in MQTT v5.0 protocol</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:close_connection">Client:close_connection ([reason])</a></td>
+	<td class="summary">Immediately close established network connection, without graceful session finishing with DISCONNECT packet</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:start_connecting">Client:start_connecting ()</a></td>
+	<td class="summary">Start connecting to broker</td>
+	</tr>
+</table>
+<h2><a href="#Low_level_methods">Low-level methods </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Client:send_pingreq">Client:send_pingreq ()</a></td>
+	<td class="summary">Send PINGREQ packet</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:open_connection">Client:open_connection ()</a></td>
+	<td class="summary">Open network connection to the broker</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:send_connect">Client:send_connect ()</a></td>
+	<td class="summary">Send CONNECT packet into opened network connection</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:check_keep_alive">Client:check_keep_alive ()</a></td>
+	<td class="summary">Checks last message send, and sends a PINGREQ if necessary.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Client:step">Client:step ()</a></td>
+	<td class="summary">Performs a single IO loop step.</td>
+	</tr>
+</table>
+<h2><a href="#Exported_functions">Exported functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#client.create">client.create (...)</a></td>
+	<td class="summary">Create, initialize and return new MQTT client instance</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Client:__init"></a>
+    <strong>Client:__init (opts)</strong>
+    </dt>
+    <dd>
+    Create and initialize MQTT client instance.  Typically this is not called directly,
+ but through <a href="../classes/Client.html#client.create">Client.create</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>							MQTT client creation options table
+        <ul>
+        <li><span class="parameter">uri</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        						MQTT broker uri to connect. Expected format:
+			<br/>	<code>[mqtt[s]://][username[:password]@]hostname[:port]</code>
+			<br/>Any option specifically added to the options
+			table will take precedence over the option specified in this uri.
+        </li>
+        <li><span class="parameter">clean</span>
+            <span class="types"><span class="type">boolean</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        			clean session start flag, use "first" to start clean only on first connect
+        </li>
+        <li><span class="parameter">protocol</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        			either <code>&quot;mqtt&quot;</code> or <code>&quot;mqtts&quot;</code>
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">username</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        			username for authorization on MQTT broker
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">password</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        			password for authorization on MQTT broker; not acceptable in absence of username
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">host</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        				hostname of the MQTT broker to connect to
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">port</span>
+            <span class="types"><span class="type">int</span></span>
+        					port number to connect to on the MQTT broker, defaults to <code>1883</code> port for plain or <code>8883</code> for secure network connections
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">version</span>
+            <span class="types"><span class="type">number</span></span>
+        			MQTT protocol version to use, either <code>4</code> (for MQTT v3.1.1) or <code>5</code> (for MQTT v5.0).
+												Also you may use special values <code>mqtt.v311</code> or <code>mqtt.v50</code> for this field.
+         (<em>default</em> 4)
+        </li>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        					MQTT client ID, will be generated by luamqtt library if absent
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">secure</span>
+            <span class="types"><span class="type">boolean</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        	use secure network connection, provided by the lua module set in <code>opts.ssl_module</code>.
+			Set to true to select default parameters, check individual <code>mqtt.connectors</code> for supported options.
+         (<em>default</em> false)
+        </li>
+        <li><span class="parameter">will</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        					will message table with required fields <code>{ topic=&quot;...&quot;, payload=&quot;...&quot; }</code>
+			and optional fields <code>{ qos=0...2, retain=true/false }</code>
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">keep_alive</span>
+            <span class="types"><span class="type">number</span></span>
+        		time interval (in seconds) for client to send PINGREQ packets to the server when network connection is inactive
+         (<em>default</em> 60)
+        </li>
+        <li><span class="parameter">reconnect</span>
+            <span class="types"><span class="type">boolean</span></span>
+        	force created MQTT client to reconnect on connection close.
+			Set to number value to provide reconnect timeout in seconds.
+			It's not recommended to use values <code>&lt; 3</code>. See also <a href="../classes/Client.html#Client:shutdown">Client:shutdown</a>.
+         (<em>default</em> false)
+        </li>
+        <li><span class="parameter">connector</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        			connector table to open and send/receive packets over network connection.
+			default is <code>require(&quot;mqtt.connector&quot;)</code> which tries to auto-detect. See <a href="../modules/mqtt.connector.html#">mqtt.connector</a>.
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">ssl_module</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        	module name for the luasec-compatible ssl module, default is <code>&quot;ssl&quot;</code>
+			may be used in some non-standard lua environments with own luasec-compatible ssl module
+         (<em>default</em> "ssl")
+        </li>
+        <li><span class="parameter">on</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         					List of event-handlers. See <a href="../classes/Client.html#Client:on">Client:on</a> for the format.
+         (<em>optional</em>)
+        </li>
+        </li></ul>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Client.html#">Client</a></span>
+        MQTT client instance table
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> Client = <span class="global">require</span> <span class="string">"mqtt.client"</span>
+
+<span class="keyword">local</span> my_client = Client.create {
+	uri = <span class="string">"mqtts://broker.host.com"</span>,
+	clean = <span class="string">"first"</span>,
+	version = mqtt.v50,
+}</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Client:on"></a>
+    <strong>Client:on (events)</strong>
+    </dt>
+    <dd>
+    Add functions as handlers of given events.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">events</span>							MQTT client creation options table
+        <ul>
+        <li><span class="parameter">connect</span>
+            <span class="types"><span class="type">function</span></span>
+        				<code>function(connack_packet, client_obj)</code><br/>
+ 				After a connect attempt, after receiving the CONNACK packet from the broker.
+ 				check <code>connack_packet.rc == 0</code> for a succesful connect.
+        </li>
+        <li><span class="parameter">error</span>
+            <span class="types"><span class="type">function</span></span>
+        					<code>function(errmsg, client_obj [, packet])</code><br/>
+ 												on errors, optional <code>packet</code> is only provided if the
+												received <code>CONNACK.rc ~= 0</code> when connecting.
+        </li>
+        <li><span class="parameter">close</span>
+            <span class="types"><span class="type">function</span></span>
+        					<code>function(connection_obj, client_obj)</code><br/>
+ 												upon closing the connection. <code>connection_obj.close_reason</code>
+												(string) will hold the close reason.
+        </li>
+        <li><span class="parameter">shutdown</span>
+            <span class="types"><span class="type">function</span></span>
+        				<code>function(client_obj)</code><br/>
+ 												upon shutting down the client (diconnecting an no more reconnects).
+        </li>
+        <li><span class="parameter">subscribe</span>
+            <span class="types"><span class="type">function</span></span>
+        				<code>function(suback_packet, client_obj)</code><br/>
+ 												upon a succesful subscription, after receiving the SUBACK packet from the broker
+        </li>
+        <li><span class="parameter">unsubscribe</span>
+            <span class="types"><span class="type">function</span></span>
+        			<code>function(unsuback_packet, client_obj)</code><br/>
+ 												upon a succesful unsubscription, after receiving the UNSUBACK packet from the broker
+        </li>
+        <li><span class="parameter">message</span>
+            <span class="types"><span class="type">function</span></span>
+        				<code>function(publish_packet, client_obj)</code><br/>
+ 												upon receiving a PUBLISH packet from the broker
+        </li>
+        <li><span class="parameter">acknowledge</span>
+            <span class="types"><span class="type">function</span></span>
+        			<code>function(ack_packet, client_obj)</code><br/>
+ 												upon receiving a PUBACK or PUBREC packet from the broker
+        </li>
+        <li><span class="parameter">auth</span>
+            <span class="types"><span class="type">function</span></span>
+        					<code>function(auth_packet, client_obj)</code><br/>
+ 												upon receiving an AUTH packet
+        </li>
+        </li></ul>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">client:on {
+	connect = <span class="keyword">function</span>(pck, self)
+		<span class="keyword">if</span> pck.rc ~= <span class="number">0</span> <span class="keyword">then</span>
+			<span class="keyword">return</span> <span class="comment">-- connection failed
+</span>		<span class="keyword">end</span>
+		<span class="comment">-- succesfully connected
+</span>	<span class="keyword">end</span>,
+	message = <span class="keyword">function</span>(pck, self)
+		<span class="comment">-- handle received message
+</span>	<span class="keyword">end</span>,
+}
+
+<span class="comment">-- an alternative way to add individual handlers;
+</span>client:on(<span class="string">"message"</span>, <span class="keyword">function</span>(pck, self)
+	<span class="comment">-- handle received message
+</span><span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Client:off"></a>
+    <strong>Client:off (event, func)</strong>
+    </dt>
+    <dd>
+    Remove given function handler for specified event.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">event</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        		event name to remove handler
+        </li>
+        <li><span class="parameter">func</span>
+            <span class="types"><span class="type">function</span></span>
+        	handler function to remove
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> handler = <span class="keyword">function</span>(pck, self)
+	<span class="comment">-- handle received message
+</span><span class="keyword">end</span>
+
+<span class="comment">-- add event handler
+</span>client:on {
+	message = handler
+}
+
+<span class="comment">-- remove it again
+</span>client:off(<span class="string">"message"</span>, handler)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Client:subscribe"></a>
+    <strong>Client:subscribe (opts)</strong>
+    </dt>
+    <dd>
+    Subscribe to specified topic.  Returns the SUBSCRIBE packet id and calls optional callback when subscription will be created on broker
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>							subscription options
+        <ul>
+        <li><span class="parameter">topic</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        					topic to subscribe
+        </li>
+        <li><span class="parameter">qos</span>
+            <span class="types"><span class="type">number</span></span>
+        				QoS level for subscription
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">no_local</span>
+            <span class="types"><span class="type">boolean</span></span>
+        				for MQTT v5.0 only: no_local flag for subscription
+        </li>
+        <li><span class="parameter">retain_as_published</span>
+            <span class="types"><span class="type">boolean</span></span>
+        		for MQTT v5.0 only: retain_as_published flag for subscription
+        </li>
+        <li><span class="parameter">retain_handling</span>
+            <span class="types"><span class="type">boolean</span></span>
+        			for MQTT v5.0 only: retain_handling flag for subscription
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        			for MQTT v5.0 only: properties for subscribe operation
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">user_properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        		for MQTT v5.0 only: user properties for subscribe operation
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+        			callback function to be called when subscription is acknowledged by broker
+         (<em>optional</em>)
+        </li>
+        </li></ul>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        packet id on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:unsubscribe"></a>
+    <strong>Client:unsubscribe (opts)</strong>
+    </dt>
+    <dd>
+    Unsubscribe from specified topic, and calls optional callback when subscription will be removed on broker
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>						subscription options
+        <ul>
+        <li><span class="parameter">topic</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        				topic to unsubscribe
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        		properties for unsubscribe operation
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">user_properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        	user properties for unsubscribe operation
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+        		callback function to be called when the unsubscribe is acknowledged by the broker
+         (<em>optional</em>)
+        </li>
+        </li></ul>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        packet id on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:publish"></a>
+    <strong>Client:publish (opts)</strong>
+    </dt>
+    <dd>
+    Publish message to broker
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>						publish operation options table
+        <ul>
+        <li><span class="parameter">topic</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        				topic to publish message
+        </li>
+        <li><span class="parameter">payload</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        			publish message payload
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">qos</span>
+            <span class="types"><span class="type">number</span></span>
+        			QoS level for message publication
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">retain</span>
+            <span class="types"><span class="type">boolean</span></span>
+        	retain message publication flag
+         (<em>default</em> false)
+        </li>
+        <li><span class="parameter">dup</span>
+            <span class="types"><span class="type">boolean</span></span>
+        		dup message publication flag
+         (<em>default</em> false)
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        		properties for publishing message
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">user_properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        	user properties for publishing message
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+        		callback to call when published message has been acknowledged by the broker
+         (<em>optional</em>)
+        </li>
+        </li></ul>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true or packet id on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:acknowledge"></a>
+    <strong>Client:acknowledge (msg[, rc=0[, properties[, user_properties]]])</strong>
+    </dt>
+    <dd>
+    Acknowledge given received message
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">msg</span>
+            <span class="types"><span class="type">packet_mt</span></span>
+        				PUBLISH message to acknowledge
+        </li>
+        <li><span class="parameter">rc</span>
+            <span class="types"><span class="type">number</span></span>
+        				The reason code field of PUBACK packet in MQTT v5.0 protocol
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        		properties for PUBACK/PUBREC packets
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">user_properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        	user properties for PUBACK/PUBREC packets
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:disconnect"></a>
+    <strong>Client:disconnect ([rc=0[, properties[, user_properties]]])</strong>
+    </dt>
+    <dd>
+    Send DISCONNECT packet to the broker and close the connection.
+ Note: if the client is set to automatically reconnect, it will do so. If you
+ want to disconnect and NOT reconnect, use <a href="../classes/Client.html#Client:shutdown">Client:shutdown</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rc</span>
+            <span class="types"><span class="type">number</span></span>
+        				The Disconnect Reason Code value from MQTT v5.0 protocol
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        		properties for PUBACK/PUBREC packets
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">user_properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        	user properties for PUBACK/PUBREC packets
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:shutdown"></a>
+    <strong>Client:shutdown (...)</strong>
+    </dt>
+    <dd>
+    Shuts the client down.
+ Disconnects if still connected, and disables reconnecting. If the client is
+ added to an ioloop, this will prevent an automatic reconnect.
+ Raises the "shutdown" event.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         see <a href="../classes/Client.html#Client:disconnect">Client:disconnect</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:auth"></a>
+    <strong>Client:auth ([rc=0[, properties[, user_properties]]])</strong>
+    </dt>
+    <dd>
+    Send AUTH packet to authenticate client on broker, in MQTT v5.0 protocol
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rc</span>
+            <span class="types"><span class="type">number</span></span>
+        				Authenticate Reason Code
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        		properties for PUBACK/PUBREC packets
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">user_properties</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        	user properties for PUBACK/PUBREC packets
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:close_connection"></a>
+    <strong>Client:close_connection ([reason])</strong>
+    </dt>
+    <dd>
+    Immediately close established network connection, without graceful session finishing with DISCONNECT packet
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">reason</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the reasong string of connection close
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:start_connecting"></a>
+    <strong>Client:start_connecting ()</strong>
+    </dt>
+    <dd>
+    Start connecting to broker
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Low_level_methods"></a>Low-level methods </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Client:send_pingreq"></a>
+    <strong>Client:send_pingreq ()</strong>
+    </dt>
+    <dd>
+    Send PINGREQ packet
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:open_connection"></a>
+    <strong>Client:open_connection ()</strong>
+    </dt>
+    <dd>
+    Open network connection to the broker
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:send_connect"></a>
+    <strong>Client:send_connect ()</strong>
+    </dt>
+    <dd>
+    Send CONNECT packet into opened network connection
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Client:check_keep_alive"></a>
+    <strong>Client:check_keep_alive ()</strong>
+    </dt>
+    <dd>
+    Checks last message send, and sends a PINGREQ if necessary.
+ Use this function to check and send keep-alives when using an external event loop. When using the
+ included modules to add clients (see <a href="../modules/mqtt.loop.html#">mqtt.loop</a>), this will be taken care of automatically.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        time till next keep_alive (in seconds)
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        time till next keep_alive (in seconds)</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        in case of errors (eg. not connected) the second return value is an error string</li>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- example using a Copas event loop to send and check keep-alives
+</span>copas.addthread(<span class="keyword">function</span>()
+    <span class="keyword">while</span> <span class="keyword">true</span> <span class="keyword">do</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> my_client <span class="keyword">then</span>
+            <span class="keyword">return</span> <span class="comment">-- exiting, client was destroyed
+</span>        <span class="keyword">end</span>
+        copas.pause(my_client:check_keep_alive())
+    <span class="keyword">end</span>
+<span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Client:step"></a>
+    <strong>Client:step ()</strong>
+    </dt>
+    <dd>
+    Performs a single IO loop step.
+ It will connect if not connected, will re-connect if set to.
+ This should be called repeatedly in a loop.  When using the included modules to
+ add clients (see <a href="../modules/mqtt.loop.html#">mqtt.loop</a>), this will be taken care of automatically.
+<p> The return value is the time after which this method must be called again.
+ It can be called sooner, but shouldn't be called later.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+         <code>-1</code>: the socket read timed out, so it is idle. This return code is only
+ returned with buffered connectors (luasocket), never for yielding sockets
+ (Copas or OpenResty)
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <code>0</code>: a packet was succesfully handled, so retry immediately, no delays,
+ in case additional data is waiting to be read on the socket.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+         <code>&gt;0</code>: The reconnect timer needs a delay before it can retry (calling
+ sooner is not a problem, it will only reconnect when the delay
+ has actually passed)
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        nil</li>
+        <li>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Exported_functions"></a>Exported functions </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "client.create"></a>
+    <strong>client.create (...)</strong>
+    </dt>
+    <dd>
+    Create, initialize and return new MQTT client instance
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         see arguments of <a href="../classes/Client.html#Client:__init">Client:__init</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Client.html#">Client</a></span>
+        MQTT client instance
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Client.html#Client:__init">Client:__init</a>
+    </ul>
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

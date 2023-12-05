@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>luamqtt</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+
+
+<h2>Topics</h2>
+<ul class="">
+  <li><strong>README</strong></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/mqtt.html">mqtt</a></li>
+  <li><a href="../modules/mqtt.loop.html">mqtt.loop</a></li>
+  <li><a href="../modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
+  <li><a href="../modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
+  <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
+  <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
+  <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
+  <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
+  <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Client.html">Client</a></li>
+  <li><a href="../classes/Ioloop.html">Ioloop</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/simple.lua.html">simple.lua</a></li>
+  <li><a href="../examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></li>
+  <li><a href="../examples/copas.lua.html">copas.lua</a></li>
+  <li><a href="../examples/openresty.lua.html">openresty.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+<p>This is a fork of LuaMQTT. It has some serious issues when using it async, which is
+why this fork exists.</p>
+
+<p>Branches in use:
+- <code>master</code> is the remote development branch; https://github.com/xHasKx/luamqtt
+- <code>keepalive</code> is where the developement happens in this repo. It has a PR open on
+  the remote repo; https://github.com/xHasKx/luamqtt/pull/31. After (if ever) it
+  gets merged, this repo will be obsolete and be removed.
+- <code>main</code> is the default branch on this repo, from where we tag and release
+  <code>luamqttt</code> (note the extra 't'), see https://luarocks.org/modules/tieske/luamqttt.</p>
+
+<p>Installing this fork is best done from LuaRocks;</p>
+
+
+<pre>
+luarocks install luamqttt
+</pre>
+
+<p>Improvements in this fork:</p>
+
+<ul>
+    <li>decoupled runloop from the client</li>
+    <li>logging using lualogging</li>
+    <li>safe async behaviour</li>
+    <li>better and safer socket support</li>
+</ul>
+
+<p>Releasing:</p>
+
+<ul>
+    <li>update verion in "<code>const.lua</code>"</li>
+    <li>render docs</li>
+    <li>create new rockspec</li>
+    <li>commit and tag using <code>tX.Y.Z</code> (use <code>t</code> instead of <code>v</code>)</li>
+</ul>
+
+<h1>luamqtt</h1>
+
+<p>Pure-lua MQTT v3.1.1 and v5.0 client</p>
+
+<p><img src="./logo.svg" alt="luamqtt logo"/></p>
+
+<p><a href="https://github.com/xHasKx/luamqtt/blob/master/LICENSE"><img src="http://img.shields.io/badge/Licence-MIT-brightgreen.svg" alt="License"/></a>
+<a href="https://github.com/xHasKx/luamqtt/actions/workflows/tests-and-coverage.yml"><img src="https://github.com/xHasKx/luamqtt/actions/workflows/tests-and-coverage.yml/badge.svg" alt="tests"/></a>
+<a href="https://coveralls.io/github/xHasKx/luamqtt?branch=master"><img src="https://coveralls.io/repos/github/xHasKx/luamqtt/badge.svg?branch=master" alt="Coverage Status"/></a>
+<a href="https://github.com/hobbyquaker/awesome-mqtt"><img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome MQTT"/></a>
+<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/powered-by-electricity.svg" alt="forthebadge"/></a></p>
+
+<p>MQTT ( <a href="http://mqtt.org/">http://mqtt.org/</a> ) client library for Lua.
+<strong>MQTT</strong> is a popular network communication protocol working by <strong>"publish/subscribe"</strong> model.</p>
+
+<p>This library is written in <strong>pure-lua</strong> to provide maximum portability.</p>
+
+<h1>Features</h1>
+
+<ul>
+    <li>Full MQTT v3.1.1 client-side support</li>
+    <li>Full MQTT v5.0 client-side support</li>
+    <li>Support for Copas, OpenResty/Nginx, and an included lightweight ioloop.</li>
+</ul>
+
+<h1>Documentation</h1>
+
+<p>See <a href="https://xhaskx.github.io/luamqtt/">https://xhaskx.github.io/luamqtt/</a></p>
+
+<h1>Forum</h1>
+
+<p>See <a href="https://forum.flespi.com/d/97-luamqtt-mqtt-client-written-in-pure-lua">flespi forum thread</a></p>
+
+<h1>Source Code</h1>
+
+<p><a href="https://github.com/xHasKx/luamqtt">https://github.com/xHasKx/luamqtt</a></p>
+
+<h1>Bugs &amp; contributing</h1>
+
+<p>Please <a href="https://github.com/xHasKx/luamqtt/issues">file a GitHub issue</a> if you found any bug.</p>
+
+<p>And of course, any contribution are welcome!</p>
+
+<h1>Tests</h1>
+
+<p>To run tests in this git repo you need <a href="https://luarocks.org/modules/olivine-labs/busted"><strong>busted</strong></a> as well as some dependencies:</p>
+
+<p>Prepare:</p>
+
+
+<pre>
+luarocks install busted
+luarocks install luacov
+luarocks install luasocket
+luarocks install luasec
+luarocks install copas
+luarocks install lualogging
+</pre>
+
+
+<p>Running the tests:</p>
+
+
+<pre>
+busted
+</pre>
+
+
+<p>There is a script to run all tests for all supported lua versions, using <a href="https://github.com/mpeterv/hererocks">hererocks</a>:</p>
+
+
+<pre>
+./tests/run-<span class="keyword">for</span>-all-lua-versions.sh
+</pre>
+
+
+<h1>Code coverage</h1>
+
+<p>Code coverage may be collected using <a href="https://keplerproject.github.io/luacov/">luacov</a>.</p>
+
+<p>To collect code coverage stats - install luacov using luarocks and then execute:</p>
+
+
+<pre>
+# collect stats during tests
+busted <span class="comment">--coverage
+</span>
+# generate report into luacov.report.out file
+luacov
+</pre>
+
+
+<h1>MQTT version</h1>
+
+<p>Currently supported is:</p>
+
+<ul>
+    <li><a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/errata01/os/mqtt-v3.1.1-errata01-os-complete.html">MQTT v3.1.1 protocol</a> version.</li>
+    <li><a href="http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">MQTT v5.0 protocol</a> version.</li>
+</ul>
+
+<p>Both protocols has full control packets support.</p>
+
+<h1>LICENSE</h1>
+
+<p>Standard MIT License, see LICENSE file for full text</p>
+
+<h1>Version bump checklist</h1>
+
+<ul>
+    <li>in file <code>./mqtt/const.lua</code>: change <code>_VERSION</code> table field</li>
+    <li>in file <code>./openwrt/make-package-without-openwrt-sources.sh</code>: change <code>Version: X.Y.Z-P</code> in $PKG_ROOT/control</li>
+    <li>in file <code>./openwrt/Makefile</code>: change <code>PKG_VERSION:=X.Y.Z</code> and maybe <code>PKG_RELEASE:=1</code></li>
+    <li>copy file <code>./luamqtt-scm-1.rockspec</code> to <code>./rockspecs/luamqtt-X.Y.Z-1.rockspec</code> change <code>local package_version = &quot;scm&quot;</code>, <code>local package_version = &quot;X.Y.Z&quot;</code></li>
+    <li>run <code>./tests/run-luacheck.sh</code> and check output for errors</li>
+    <li>run <code>./tests/run-markdownlint.sh</code> and check output for errors</li>
+    <li>run <code>./tests/run-for-all-lua-versions.sh</code> and check output for errors</li>
+    <li>run <code>./openwrt/make-package-without-openwrt-sources.sh</code> and check output for errors</li>
+    <li>run <code>git commit</code>, <code>git tag vX.Y.Z</code></li>
+    <li>run <code>git push</code>, <code>git push --tags</code></li>
+    <li>upload to LuaRocks; <code>luarocks upload ./rockspecs/luamqtt-X.Y.Z-1.rockspec --api-key=ABCDEFGH</code></li>
+</ul>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

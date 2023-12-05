@@ -35,9 +35,9 @@
 <h2>Topics</h2>
 <ul class="">
   <li><a href="../topics/README.md.html">README</a></li>
-  <li><strong>MIT License</strong></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
   <li><a href="../topics/01-installation.md.html">Installation</a></li>
-  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><strong>Dependencies</strong></li>
   <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
   <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
   <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
@@ -72,27 +72,55 @@
 <div id="content">
 
 
-<h1>MIT License</h1>
+<h1>Dependencies</h1>
 
-<p>Copyright (c) 2018-2021 Alexander Kiranov</p>
+<p>The dependencies differ slightly based on the environment you use, and the requirements you have:</p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<ul>
+    <li><a href="https://luarocks.org/modules/luasocket/luasocket"><strong>luasocket</strong></a> to establish TCP connections to the MQTT broker.
+This is a listed dependency in the luamqtt rockspec, so it will automatically be installed if you use LuaRocks to
+install luamqtt. To install it manually:
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
+<pre>
+luarocks install luasocket
+</pre>
+</li>
+    <li><a href="https://github.com/keplerproject/copas"><strong>copas</strong></a> module for asynchoneous IO. Copas is an advanced co-routine
+scheduler with far more features than the included <code>ioloop</code>. For anything more than a few devices, or for devices which
+require network IO beyond mqtt alone, Copas is the better alternative. Copas is also pure-Lua, but has parallel network
+IO (as opposed to sequential network IO in <code>ioloop</code>), and has features like; threads, timers, locks, semaphores, and
+non-blocking clients for http(s), (s)ftp, and smtp.
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+<pre>
+luarocks install copas
+</pre>
+</li>
+    <li><a href="https://github.com/brunoos/luasec"><strong>luasec</strong></a> module for SSL/TLS based connections. This is optional and may be
+skipped if you don't need secure network connections (e.g. broker is located in your local network). It's not listed
+in package dependencies, please install it manually like this:
+
+<pre>
+luarocks install luasec
+</pre>
+</li>
+    <li><a href="http://bitop.luajit.org/"><strong>LuaBitOp</strong></a> library to perform bitwise operations, which is required only on
+Lua 5.1. It's not listed in package dependencies, please install it manually like this:
+
+<pre>
+luarocks install luabitop
+</pre>
+</li>
+    <li><a href="https://github.com/lunarmodules/lualogging/"><strong>LuaLogging</strong></a> to enable logging by the MQTT client. This is optional
+but highly recommended for long running clients. This is a great debugging aid when developing your clients. Also when
+using OpenResty as your runtime, you'll definitely want to use this, see
+<a href="https://xhaskx.github.io/luamqtt/examples/openresty.lua.html">openresty.lua</a> for an example.
+It's not listed in package dependencies, please install it manually like this:
+
+<pre>
+luarocks install lualogging
+</pre>
+</li>
+</ul>
 
 
 </div> <!-- id="content" -->

@@ -30,17 +30,21 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#building_your_own">building your own </a></li>
+</ul>
 
 
 <h2>Topics</h2>
 <ul class="">
   <li><a href="../topics/README.md.html">README</a></li>
-  <li><strong>MIT License</strong></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
   <li><a href="../topics/01-installation.md.html">Installation</a></li>
   <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
   <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
   <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
-  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+  <li><strong>Connectors</strong></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -72,27 +76,35 @@
 <div id="content">
 
 
-<h1>MIT License</h1>
+<h1>Connectors</h1>
 
-<p>Copyright (c) 2018-2021 Alexander Kiranov</p>
+<p>A connector is a network connection layer for luamqtt. This ensures clean separation between the socket
+implementation and the client/protocol implementation.</p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<p>By default luamqtt ships with connectors for <code>ioloop</code>, <code>copas</code>, and <code>nginx</code>. It will auto-detect which
+one to use using the <a href="../modules/mqtt.loop.html#">mqtt.loop</a> module.</p>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
+<p><a name="building_your_own"></a></p>
+<h2>building your own</h2>
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+<p>If you have a different socket implementation you can write your own connector.</p>
+
+<p>There are 2 base-classes <code>mqtt.connector.base.buffered-base</code> and <code>mqtt.connector.base.non-buffered-base</code>
+to build on, which to pick depends on the environment.</p>
+
+<p>The main question is what event/io loop mechanism does your implementation have?</p>
+
+<ul>
+    <li><p>a single main (co)routine that runs, and doesn't yield when doing network IO. In this case
+    you should use the <code>buffered_base</code> and read on sockets with a <code>0</code> timeout. Check the
+    <a href="../modules/mqtt.connector.luasocket.html#">mqtt.connector.luasocket</a> implementation for an example (this is what <code>ioloop</code> uses).</p></li>
+    <li><p>multiple co-routines that run within a scheduler, and doing non-blocking network IO (receive/send
+    will implicitly yield control to the scheduler so it will run other tasks until the socket is ready).
+    This is what Copas and Nginx do, and it requires the <code>non_buffered_base</code>.</p></li>
+</ul>
+
+<p>The main thing to look for when checking out the existing implementations is the network timeout settings,
+and the returned <code>signals</code>.</p>
 
 
 </div> <!-- id="content" -->

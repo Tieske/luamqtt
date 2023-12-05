@@ -40,19 +40,36 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><strong>mqtt</strong></li>
-  <li><a href="../modules/mqtt.client.html">mqtt.client</a></li>
-  <li><a href="../modules/mqtt.ioloop.html">mqtt.ioloop</a></li>
+  <li><a href="../modules/mqtt.loop.html">mqtt.loop</a></li>
+  <li><a href="../modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
+  <li><a href="../modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
+  <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
+  <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
+  <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
+  <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
+  <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Client.html">Client</a></li>
+  <li><a href="../classes/Ioloop.html">Ioloop</a></li>
 </ul>
 <h2>Topics</h2>
 <ul class="">
-  <li><a href="https://github.com/xHasKx/luamqtt#readme">README</a></li>
-  <li><a href="../topics/LICENSE.html">LICENSE</a></li>
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
   <li><a href="../examples/simple.lua.html">simple.lua</a></li>
-  <li><a href="../examples/sync.lua.html">sync.lua</a></li>
   <li><a href="../examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></li>
+  <li><a href="../examples/copas.lua.html">copas.lua</a></li>
+  <li><a href="../examples/openresty.lua.html">openresty.lua</a></li>
 </ul>
 
 </div>
@@ -72,15 +89,27 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_ioloop">get_ioloop ()</a></td>
-	<td class="summary">Returns default ioloop instance</td>
+	<td class="summary">Returns default <code>ioloop</code> instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#run_ioloop">run_ioloop (...)</a></td>
-	<td class="summary">Run default ioloop for given MQTT clients or functions</td>
+	<td class="summary">Run default <code>ioloop</code> for given MQTT clients or functions.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#run_sync">run_sync (cl)</a></td>
-	<td class="summary">Run synchronous input/output loop for only one given MQTT client.</td>
+	<td class="name" nowrap><a href="#validate_subscribe_topic">validate_subscribe_topic (t)</a></td>
+	<td class="summary">Validates a topic with wildcards.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#validate_publish_topic">validate_publish_topic (t)</a></td>
+	<td class="summary">Validates a topic without wildcards.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#compile_topic_pattern">compile_topic_pattern (t)</a></td>
+	<td class="summary">Returns a Lua pattern from topic.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#topic_match">topic_match (string, opts)</a></td>
+	<td class="summary">Parses wildcards in a topic into a table.</td>
 	</tr>
 </table>
 <h2><a href="#Tables">Tables</a></h2>
@@ -109,7 +138,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
-         Same as for mqtt.client.create(...)
+         Same as for <a href="../classes/Client.html#client.create">Client.create</a>(...)
         </li>
     </ul>
 
@@ -117,7 +146,7 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="../modules/mqtt.client.html#client_mt:__init">__init</a>
+         <a href="../classes/Client.html#Client:__init">Client:__init</a>
     </ul>
 
 
@@ -127,12 +156,16 @@
     <strong>get_ioloop ()</strong>
     </dt>
     <dd>
-    Returns default ioloop instance
+    Returns default <code>ioloop</code> instance.  Shortcut to <a href="../classes/Ioloop.html#ioloop.get">Ioloop.get</a>.
 
 
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Ioloop.html#ioloop.get">Ioloop.get</a>
+    </ul>
 
 
 </dd>
@@ -141,13 +174,14 @@
     <strong>run_ioloop (...)</strong>
     </dt>
     <dd>
-    Run default ioloop for given MQTT clients or functions
+    Run default <code>ioloop</code> for given MQTT clients or functions.
+ Will not return until all clients/functions have exited.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
-         MQTT clients or lopp functions to add to ioloop
+         MQTT clients or loop functions to add to ioloop, see <a href="../classes/Ioloop.html#Ioloop:add">Ioloop:add</a> for details on functions.
         </li>
     </ul>
 
@@ -155,32 +189,184 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="../modules/mqtt.ioloop.html#ioloop_mt:get">mqtt.ioloop.get</a></li>
-         <li><a href="../modules/mqtt.ioloop.html#ioloop_mt:run_until_clients">mqtt.ioloop.run_until_clients</a></li>
+         <li><a href="../classes/Ioloop.html#ioloop.get">Ioloop.get</a></li>
+         <li><a href="../classes/Ioloop.html#Ioloop:run_until_clients">Ioloop.run_until_clients</a></li>
     </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">mqtt.run_ioloop(client1, client2, func1)</pre>
+    </ul>
 
 </dd>
     <dt>
-    <a name = "run_sync"></a>
-    <strong>run_sync (cl)</strong>
+    <a name = "validate_subscribe_topic"></a>
+    <strong>validate_subscribe_topic (t)</strong>
     </dt>
     <dd>
-    Run synchronous input/output loop for only one given MQTT client.
- Provided client's connection will be opened.
- Client reconnect feature will not work, and keep_alive too.
+    Validates a topic with wildcards.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">cl</span>
-         MQTT client instance to run
+        <li><span class="parameter">t</span>
+         (string) wildcard topic to validate
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        topic, or false+error
+    </ol>
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> t = <span class="global">assert</span>(mqtt.validate_subscribe_topic(<span class="string">"base/+/thermostat/#"</span>))</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "validate_publish_topic"></a>
+    <strong>validate_publish_topic (t)</strong>
+    </dt>
+    <dd>
+    Validates a topic without wildcards.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         (string) topic to validate
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        topic, or false+error
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> t = <span class="global">assert</span>(mqtt.validate_publish_topic(<span class="string">"base/living/thermostat/setpoint"</span>))</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "compile_topic_pattern"></a>
+    <strong>compile_topic_pattern (t)</strong>
+    </dt>
+    <dd>
+    Returns a Lua pattern from topic.
+ Takes a wildcarded-topic and returns a Lua pattern that can be used
+ to validate if a received topic matches the wildcard-topic
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         (string) the wildcard topic
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Lua-pattern (string) or false+err
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> patt = compile_topic_pattern(<span class="string">"homes/+/+/#"</span>)
+
+<span class="keyword">local</span> topic = <span class="string">"homes/myhome/living/mainlights/brightness"</span>
+<span class="keyword">local</span> homeid, roomid, varargs = topic:match(patt)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "topic_match"></a>
+    <strong>topic_match (string, opts)</strong>
+    </dt>
+    <dd>
+    Parses wildcards in a topic into a table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+            <span class="types"><span class="type">topic</span></span>
+         incoming topic string
+        </li>
+        <li><span class="parameter">opts</span> parsing options table
+        <ul>
+        <li><span class="parameter">topic</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the wild-carded topic to match against (optional if <code>opts.pattern</code> is given)
+        </li>
+        <li><span class="parameter">pattern</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the compiled pattern for the wild-carded topic (optional if <code>opts.topic</code>
+   is given). If not given then topic will be compiled and the result will be
+   stored in this field for future use (cache).
+        </li>
+        <li><span class="parameter">keys</span>
+            <span class="types"><span class="type">array</span></span>
+         array of field names. The order must be the same as the
+   order of the wildcards in <code>topic</code>
+        </li>
+        </li></ul>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         <code>fields</code>: the array part will have the values of the wildcards, in
+   the order they appeared. The hash part, will have the field names provided
+   in <code>opts.keys</code>, with the values of the corresponding wildcard. If a <code>#</code>
+   wildcard was used, that one will be the last in the table.</li>
+        <li>
+           <span class="types"><span class="type">`varargs`:</span></span>
+        The returned table is an array, with all segments that were
+   matched by the <code>#</code> wildcard (empty if there was no <code>#</code> wildcard).</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        <code>false</code> if there was no match
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <code>false</code>+err on error, eg. pattern was invalid.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> opts = {
+  topic = <span class="string">"homes/+/+/#"</span>,
+  keys = { <span class="string">"homeid"</span>, <span class="string">"roomid"</span>, <span class="string">"varargs"</span>},
+}
+<span class="keyword">local</span> fields, varargst = topic_match(<span class="string">"homes/myhome/living/mainlights/brightness"</span>, opts)
+
+<span class="global">print</span>(fields[<span class="number">1</span>], fields.homeid)  <span class="comment">-- "myhome myhome"
+</span><span class="global">print</span>(fields[<span class="number">2</span>], fields.roomid)  <span class="comment">-- "living living"
+</span><span class="global">print</span>(fields[<span class="number">3</span>], fields.varargs) <span class="comment">-- "mainlights/brightness mainlights/brightness"
+</span>
+<span class="global">print</span>(varargst[<span class="number">1</span>]) <span class="comment">-- "mainlights"
+</span><span class="global">print</span>(varargst[<span class="number">2</span>]) <span class="comment">-- "brightness"</span></pre>
+    </ul>
 
 </dd>
 </dl>
@@ -198,19 +384,33 @@
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">v311</span>
+            <span class="types"><span class="type">number</span></span>
          MQTT v3.1.1 protocol version constant
         </li>
         <li><span class="parameter">v50</span>
+            <span class="types"><span class="type">number</span></span>
           MQTT v5.0   protocol version constant
         </li>
         <li><span class="parameter">_VERSION</span>
-         luamqtt version string
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         luamqtt library version string
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+    </ul>
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> client = mqtt.client {
+	uri = <span class="string">"mqtts://aladdin:soopersecret@mqttbroker.com"</span>,
+	clean = <span class="keyword">true</span>,
+	version = mqtt.v50,	<span class="comment">-- specify constant for MQTT version
+</span>}</pre>
+    </ul>
 
 </dd>
 </dl>
@@ -220,7 +420,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-07-09 23:06:55 </i>
+<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

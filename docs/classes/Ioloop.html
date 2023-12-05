@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>luamqtt</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Metamethods">Metamethods</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Exported_functions">Exported functions </a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Client.html">Client</a></li>
+  <li><strong>Ioloop</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/mqtt.html">mqtt</a></li>
+  <li><a href="../modules/mqtt.loop.html">mqtt.loop</a></li>
+  <li><a href="../modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
+  <li><a href="../modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
+  <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
+  <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
+  <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
+  <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
+  <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/simple.lua.html">simple.lua</a></li>
+  <li><a href="../examples/mqtt5-simple.lua.html">mqtt5-simple.lua</a></li>
+  <li><a href="../examples/copas.lua.html">copas.lua</a></li>
+  <li><a href="../examples/openresty.lua.html">openresty.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Ioloop</code></h1>
+<p>This class contains the ioloop implementation.</p>
+<p>
+<p> In short: allowing you to work with several MQTT clients in one script, and allowing them to maintain
+ a long-term connection to broker, using PINGs. This is the bundled alternative to Copas and Nginx.
+<p> NOTE: this module will work only with MQTT clients using the <a href="../modules/mqtt.connector.luasocket.html#">connector.luasocket</a> connector.
+<p> Providing an IO loop instance dealing with efficient (as much as possible in limited lua IO) network communication
+ for several MQTT clients in the same OS thread.
+ The main idea is that you are creating an ioloop instance, then adding MQTT clients to it.
+ Then ioloop is starting an endless loop trying to receive/send data for all added MQTT clients.
+ You may add more or remove some MQTT clients to/from the ioloop after it has been created and started.
+<p> Using an ioloop is allowing you to run a MQTT client for long time, through sending PINGREQ packets to broker
+ in keepAlive interval to maintain long-term connection.
+<p> Also, any function can be added to the ioloop instance, and it will be called in the same endless loop over and over
+ alongside with added MQTT clients to provide you a piece of processor time to run your own logic (like running your own
+ network communications or any other thing good working in an io-loop)</p>
+
+
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Ioloop:__init">Ioloop:__init (opts)</a></td>
+	<td class="summary">Initialize ioloop instance.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Ioloop:add">Ioloop:add (client)</a></td>
+	<td class="summary">Add MQTT client or a loop function to the ioloop instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Ioloop:remove">Ioloop:remove (client)</a></td>
+	<td class="summary">Remove MQTT client or a loop function from the ioloop instance</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Ioloop:iteration">Ioloop:iteration ()</a></td>
+	<td class="summary">Perform one ioloop iteration.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Ioloop:run_until_clients">Ioloop:run_until_clients ()</a></td>
+	<td class="summary">Run the ioloop.</td>
+	</tr>
+</table>
+<h2><a href="#Exported_functions">Exported functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ioloop.create">ioloop.create ()</a></td>
+	<td class="summary">Create IO loop instance with given options</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ioloop.get">ioloop.get ([autocreate=true[, opts]])</a></td>
+	<td class="summary">Returns default ioloop instance</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Ioloop:__init"></a>
+    <strong>Ioloop:__init (opts)</strong>
+    </dt>
+    <dd>
+    Initialize ioloop instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>							ioloop creation options table
+        <ul>
+        <li><span class="parameter">sleep_min</span>
+            <span class="types"><span class="type">number</span></span>
+        			min sleep interval after each iteration
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">sleep_step</span>
+            <span class="types"><span class="type">number</span></span>
+        	increase in sleep after every idle iteration
+         (<em>default</em> 0.002)
+        </li>
+        <li><span class="parameter">sleep_max</span>
+            <span class="types"><span class="type">number</span></span>
+        		max sleep interval after each iteration
+         (<em>default</em> 0.030)
+        </li>
+        <li><span class="parameter">sleep_function</span>
+            <span class="types"><span class="type">function</span></span>
+        	custom sleep function to call after each iteration
+         (<em>default</em> luasocket.sleep)
+        </li>
+        </li></ul>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Ioloop.html#">Ioloop</a></span>
+        ioloop instance
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Ioloop:add"></a>
+    <strong>Ioloop:add (client)</strong>
+    </dt>
+    <dd>
+    Add MQTT client or a loop function to the ioloop instance.
+ When adding a function, the function should on each call return the time (in seconds) it wishes to sleep. The ioloop
+ will sleep after each iteration based on what clients/functions returned. So the function may be called sooner than
+ the requested time, but will not be called later.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">client</span>
+            <span class="types"><a class="type" href="../modules/mqtt.html#client">client_mt</a> or <span class="type">function</span></span>
+         MQTT client or a loop function to add to ioloop
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- create a timer on a 1 second interval
+</span><span class="keyword">local</span> timer <span class="keyword">do</span>
+	<span class="keyword">local</span> interval = <span class="number">1</span>
+	<span class="keyword">local</span> next_call = socket.gettime() + interval
+	timer = <span class="keyword">function</span>()
+		<span class="keyword">if</span> next_call &gt;= socket.gettime() <span class="keyword">then</span>
+
+			<span class="comment">-- do stuff here
+</span>
+			next_call = socket.gettime() + interval
+			<span class="keyword">return</span> interval
+		<span class="keyword">else</span>
+			<span class="keyword">return</span> next_call - socket.gettime()
+		<span class="keyword">end</span>
+	<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+loop:add(timer)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Ioloop:remove"></a>
+    <strong>Ioloop:remove (client)</strong>
+    </dt>
+    <dd>
+    Remove MQTT client or a loop function from the ioloop instance
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">client</span>
+            <span class="types"><a class="type" href="../modules/mqtt.html#client">client_mt</a> or <span class="type">function</span></span>
+         MQTT client or a loop function to remove from ioloop
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true on success or false and error message on failure
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Ioloop:iteration"></a>
+    <strong>Ioloop:iteration ()</strong>
+    </dt>
+    <dd>
+    Perform one ioloop iteration.
+ TODO: make this smarter do not wake-up functions or clients returning a longer
+ sleep delay. Currently they will be tried earlier if another returns a smaller delay.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Ioloop:run_until_clients"></a>
+    <strong>Ioloop:run_until_clients ()</strong>
+    </dt>
+    <dd>
+    Run the ioloop.
+ While there is at least one client/function in the ioloop it will continue
+ iterating. After all clients/functions are gone, it will return.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Exported_functions"></a>Exported functions </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ioloop.create"></a>
+    <strong>ioloop.create ()</strong>
+    </dt>
+    <dd>
+    Create IO loop instance with given options
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Ioloop.html#">Ioloop</a></span>
+        ioloop instance
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Ioloop.html#Ioloop:__init">Ioloop:__init</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "ioloop.get"></a>
+    <strong>ioloop.get ([autocreate=true[, opts]])</strong>
+    </dt>
+    <dd>
+    Returns default ioloop instance
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">autocreate</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Automatically create ioloop instance
+         (<em>default</em> true)
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Arguments for creating ioloop instance
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Ioloop.html#">Ioloop</a></span>
+        ioloop instance
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -30,24 +30,18 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
-
-
-<h2>Topics</h2>
-<ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
-  <li><strong>MIT License</strong></li>
-  <li><a href="../topics/01-installation.md.html">Installation</a></li>
-  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
-  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
-  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
-  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
 </ul>
+
+
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/mqtt.html">mqtt</a></li>
   <li><a href="../modules/mqtt.loop.html">mqtt.loop</a></li>
   <li><a href="../modules/mqtt.loop.copas.html">mqtt.loop.copas</a></li>
-  <li><a href="../modules/mqtt.loop.nginx.html">mqtt.loop.nginx</a></li>
+  <li><strong>mqtt.loop.nginx</strong></li>
   <li><a href="../modules/mqtt.loop.ioloop.html">mqtt.loop.ioloop</a></li>
   <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
   <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
@@ -58,6 +52,16 @@
 <ul class="nowrap">
   <li><a href="../classes/Client.html">Client</a></li>
   <li><a href="../classes/Ioloop.html">Ioloop</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -71,28 +75,56 @@
 
 <div id="content">
 
+<h1>Module <code>mqtt.loop.nginx</code></h1>
+<p>Nginx specific client handling module.</p>
+<p>
+ Typically this module is not used directly, but through <a href="../modules/mqtt.loop.html#">mqtt.loop</a> when
+ auto-detecting the environment.</p>
 
-<h1>MIT License</h1>
 
-<p>Copyright (c) 2018-2021 Alexander Kiranov</p>
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#add">add (client)</a></td>
+	<td class="summary">Add MQTT client to the Nginx environment.</td>
+	</tr>
+</table>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<br/>
+<br/>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "add"></a>
+    <strong>add (client)</strong>
+    </dt>
+    <dd>
+    Add MQTT client to the Nginx environment.
+ The client will automatically be removed after it exits. It will set up a
+ thread to call <a href="../classes/Client.html#Client:check_keep_alive">Client:check_keep_alive</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">client</span>
+         mqtt-client to add to the Nginx environment
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> on success or <code>false</code> and error message on failure
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

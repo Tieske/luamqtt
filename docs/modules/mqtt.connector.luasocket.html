@@ -32,16 +32,6 @@
 
 
 
-<h2>Topics</h2>
-<ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
-  <li><strong>MIT License</strong></li>
-  <li><a href="../topics/01-installation.md.html">Installation</a></li>
-  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
-  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
-  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
-  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
-</ul>
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/mqtt.html">mqtt</a></li>
@@ -52,12 +42,22 @@
   <li><a href="../modules/mqtt.connector.html">mqtt.connector</a></li>
   <li><a href="../modules/mqtt.connector.copas.html">mqtt.connector.copas</a></li>
   <li><a href="../modules/mqtt.connector.nginx.html">mqtt.connector.nginx</a></li>
-  <li><a href="../modules/mqtt.connector.luasocket.html">mqtt.connector.luasocket</a></li>
+  <li><strong>mqtt.connector.luasocket</strong></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/Client.html">Client</a></li>
   <li><a href="../classes/Ioloop.html">Ioloop</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">MIT License</a></li>
+  <li><a href="../topics/01-installation.md.html">Installation</a></li>
+  <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
+  <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
+  <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
+  <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -71,28 +71,31 @@
 
 <div id="content">
 
+<h1>Module <code>mqtt.connector.luasocket</code></h1>
+<p>LuaSocket (and LuaSec) based connector.</p>
+<p>
+<p> This connector works with the blocking LuaSocket sockets. This connector uses
+ <code>LuaSec</code> for TLS connections. This is the connector used for the included
+ <code>mqtt.ioloop</code> scheduler.
+<p> When using TLS / MQTTS connections, the <code>secure</code> option passed to the <a href="../modules/mqtt.html#client">client</a>
+ when creating it, can be the standard table of options as used by LuaSec
+ for creating a context. When omitted the defaults will be;
+ <code>{ mode=&quot;client&quot;, protocol=&quot;any&quot;, verify=&quot;none&quot;,
+  options={ &quot;all&quot;, &quot;no_sslv2&quot;, &quot;no_sslv3&quot;, &quot;no_tlsv1&quot; } }</code>
+<p> Caveats:
+<p> * since the client creates a long lived connection for reading, it returns
+   upon receiving a packet, to call an event handler. The handler must return
+   swiftly, since while the handler runs the socket will not be reading.
+   Any task that might take longer than a few milliseconds should be off
+   loaded to another task.
+</p>
 
-<h1>MIT License</h1>
 
-<p>Copyright (c) 2018-2021 Alexander Kiranov</p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<br/>
+<br/>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
 
 
 </div> <!-- id="content" -->
