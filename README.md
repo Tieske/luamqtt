@@ -83,12 +83,15 @@ To run tests in this git repo you need [**busted**](https://luarocks.org/modules
 
 Prepare:
 
-    luarocks install busted
-    luarocks install luacov
-    luarocks install luasocket
-    luarocks install luasec
-    luarocks install copas
-    luarocks install lualogging
+```sh
+luarocks install busted
+luarocks install luacov
+luarocks install luasocket
+luarocks install luasec
+luarocks install copas
+luarocks install lualogging
+luarocks install ansicolors
+```
 
 Running the tests:
 
