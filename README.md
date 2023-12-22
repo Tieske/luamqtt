@@ -59,6 +59,14 @@ From LuaRocks:
 
 [More details](./docs_topics/01-installation.md)
 
+# Installation
+
+From LuaRocks:
+
+    luarocks install luamqtt
+
+[More details](./docs_topics/01-installation.md)
+
 # Documentation
 
 See [https://xhaskx.github.io/luamqtt/](https://xhaskx.github.io/luamqtt/)
