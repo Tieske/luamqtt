@@ -46,7 +46,7 @@ function buffered:receive(size)
 
 	while size > (#buf - idx) do
 		-- buffer is lacking bytes, read more...
-		local data, err = self:plain_receive(#buf - idx + size)
+		local data, err = self:plain_receive(size - (#buf - idx))
 		if not data then
 			if err == self.signal_idle then
 				-- read timedout, retry entire packet later, reset buffer
@@ -73,6 +73,9 @@ end
 -- The implementation MUST read with a timeout that immediately returns if there
 -- is no data to read. If there is no data, then it MUST return
 -- `nil, self.signal_idle` to indicate it no data was there and we need to retry later.
+--
+-- If there is partial data, it should return that data (less than the requested
+-- number of bytes), with no error/signal.
 --
 -- If the receive errors, because of a closed connection it should return
 -- `nil, self.signal_closed` to indicate this. Any other errors can be returned
