@@ -26,6 +26,7 @@
 <br/>
 <h1>luamqtt</h1>
 
+
 <ul>
   <li><a href="../index.html">Index</a></li>
 </ul>
@@ -57,13 +58,14 @@
 </ul>
 <h2>Topics</h2>
 <ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/README.md.html">This is a fork of LuaMQTT</a></li>
   <li><a href="../topics/LICENSE.html">MIT License</a></li>
   <li><a href="../topics/01-installation.md.html">Installation</a></li>
   <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
   <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
   <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
   <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+  <li><a href="../topics/README.md.html">Short documentation topics</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -98,26 +100,26 @@
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Ioloop:__init">Ioloop:__init (opts)</a></td>
+	<td class="name" nowrap><a href="#ioloop:__init">ioloop:__init (opts)</a></td>
 	<td class="summary">Initialize ioloop instance.</td>
 	</tr>
 </table>
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Ioloop:add">Ioloop:add (client)</a></td>
+	<td class="name" nowrap><a href="#ioloop:add">ioloop:add (client)</a></td>
 	<td class="summary">Add MQTT client or a loop function to the ioloop instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Ioloop:remove">Ioloop:remove (client)</a></td>
+	<td class="name" nowrap><a href="#ioloop:remove">ioloop:remove (client)</a></td>
 	<td class="summary">Remove MQTT client or a loop function from the ioloop instance</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Ioloop:iteration">Ioloop:iteration ()</a></td>
+	<td class="name" nowrap><a href="#ioloop:iteration">ioloop:iteration ()</a></td>
 	<td class="summary">Perform one ioloop iteration.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Ioloop:run_until_clients">Ioloop:run_until_clients ()</a></td>
+	<td class="name" nowrap><a href="#ioloop:run_until_clients">ioloop:run_until_clients ()</a></td>
 	<td class="summary">Run the ioloop.</td>
 	</tr>
 </table>
@@ -141,8 +143,8 @@
 
     <dl class="function">
     <dt>
-    <a name = "Ioloop:__init"></a>
-    <strong>Ioloop:__init (opts)</strong>
+    <a name = "ioloop:__init"></a>
+    <strong>ioloop:__init (opts)</strong>
     </dt>
     <dd>
     Initialize ioloop instance.
@@ -191,8 +193,8 @@
 
     <dl class="function">
     <dt>
-    <a name = "Ioloop:add"></a>
-    <strong>Ioloop:add (client)</strong>
+    <a name = "ioloop:add"></a>
+    <strong>ioloop:add (client)</strong>
     </dt>
     <dd>
     Add MQTT client or a loop function to the ioloop instance.
@@ -222,27 +224,27 @@
         <pre class="example"><span class="comment">-- create a timer on a 1 second interval
 </span><span class="keyword">local</span> timer <span class="keyword">do</span>
 	<span class="keyword">local</span> interval = <span class="number">1</span>
-	<span class="keyword">local</span> next_call = socket.gettime() + interval
+	<span class="keyword">local</span> next_call = socket.<span class="function-name">gettime</span>() + interval
 	timer = <span class="keyword">function</span>()
-		<span class="keyword">if</span> next_call &gt;= socket.gettime() <span class="keyword">then</span>
+		<span class="keyword">if</span> next_call &gt;= socket.<span class="function-name">gettime</span>() <span class="keyword">then</span>
 
 			<span class="comment">-- do stuff here
 </span>
-			next_call = socket.gettime() + interval
+			next_call = socket.<span class="function-name">gettime</span>() + interval
 			<span class="keyword">return</span> interval
 		<span class="keyword">else</span>
-			<span class="keyword">return</span> next_call - socket.gettime()
+			<span class="keyword">return</span> next_call - socket.<span class="function-name">gettime</span>()
 		<span class="keyword">end</span>
 	<span class="keyword">end</span>
 <span class="keyword">end</span>
 
-loop:add(timer)</pre>
+loop:<span class="function-name">add</span>(timer)</pre>
     </ul>
 
 </dd>
     <dt>
-    <a name = "Ioloop:remove"></a>
-    <strong>Ioloop:remove (client)</strong>
+    <a name = "ioloop:remove"></a>
+    <strong>ioloop:remove (client)</strong>
     </dt>
     <dd>
     Remove MQTT client or a loop function from the ioloop instance
@@ -267,8 +269,8 @@ loop:add(timer)</pre>
 
 </dd>
     <dt>
-    <a name = "Ioloop:iteration"></a>
-    <strong>Ioloop:iteration ()</strong>
+    <a name = "ioloop:iteration"></a>
+    <strong>ioloop:iteration ()</strong>
     </dt>
     <dd>
     Perform one ioloop iteration.
@@ -283,8 +285,8 @@ loop:add(timer)</pre>
 
 </dd>
     <dt>
-    <a name = "Ioloop:run_until_clients"></a>
-    <strong>Ioloop:run_until_clients ()</strong>
+    <a name = "ioloop:run_until_clients"></a>
+    <strong>ioloop:run_until_clients ()</strong>
     </dt>
     <dd>
     Run the ioloop.
@@ -321,7 +323,7 @@ loop:add(timer)</pre>
 
     <h3>See also:</h3>
     <ul>
-         <a href="../classes/Ioloop.html#Ioloop:__init">Ioloop:__init</a>
+         <a href="../classes/Ioloop.html#ioloop:__init">Ioloop:__init</a>
     </ul>
 
 
@@ -342,7 +344,7 @@ loop:add(timer)</pre>
          (<em>default</em> true)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
          Arguments for creating ioloop instance
          (<em>optional</em>)
         </li>
@@ -365,8 +367,8 @@ loop:add(timer)</pre>
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-07-20 16:24:32 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

@@ -26,6 +26,7 @@
 <br/>
 <h1>luamqtt</h1>
 
+
 <ul>
   <li><a href="../index.html">Index</a></li>
 </ul>
@@ -56,13 +57,14 @@
 </ul>
 <h2>Topics</h2>
 <ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/README.md.html">This is a fork of LuaMQTT</a></li>
   <li><a href="../topics/LICENSE.html">MIT License</a></li>
   <li><a href="../topics/01-installation.md.html">Installation</a></li>
   <li><a href="../topics/02-dependencies.md.html">Dependencies</a></li>
   <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
   <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
   <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+  <li><a href="../topics/README.md.html">Short documentation topics</a></li>
 </ul>
 <h2>Examples</h2>
 <ul class="nowrap">
@@ -146,7 +148,7 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="../classes/Client.html#Client:__init">Client:__init</a>
+         <a href="../classes/Client.html#client:__init">Client:__init</a>
     </ul>
 
 
@@ -181,7 +183,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
-         MQTT clients or loop functions to add to ioloop, see <a href="../classes/Ioloop.html#Ioloop:add">Ioloop:add</a> for details on functions.
+         MQTT clients or loop functions to add to ioloop, see <a href="../classes/Ioloop.html#ioloop:add">Ioloop:add</a> for details on functions.
         </li>
     </ul>
 
@@ -190,12 +192,12 @@
     <h3>See also:</h3>
     <ul>
          <li><a href="../classes/Ioloop.html#ioloop.get">Ioloop.get</a></li>
-         <li><a href="../classes/Ioloop.html#Ioloop:run_until_clients">Ioloop.run_until_clients</a></li>
+         <li><a href="../classes/Ioloop.html#ioloop:run_until_clients">Ioloop.run_until_clients</a></li>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">mqtt.run_ioloop(client1, client2, func1)</pre>
+        <pre class="example">mqtt.<span class="function-name">run_ioloop</span>(client1, client2, func1)</pre>
     </ul>
 
 </dd>
@@ -224,7 +226,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"><span class="keyword">local</span> t = <span class="global">assert</span>(mqtt.validate_subscribe_topic(<span class="string">"base/+/thermostat/#"</span>))</pre>
+        <pre class="example"><span class="keyword">local</span> t = <span class="global">assert</span>(mqtt.<span class="function-name">validate_subscribe_topic</span>(<span class="string">"base/+/thermostat/#"</span>))</pre>
     </ul>
 
 </dd>
@@ -253,7 +255,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"><span class="keyword">local</span> t = <span class="global">assert</span>(mqtt.validate_publish_topic(<span class="string">"base/living/thermostat/setpoint"</span>))</pre>
+        <pre class="example"><span class="keyword">local</span> t = <span class="global">assert</span>(mqtt.<span class="function-name">validate_publish_topic</span>(<span class="string">"base/living/thermostat/setpoint"</span>))</pre>
     </ul>
 
 </dd>
@@ -284,10 +286,10 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"><span class="keyword">local</span> patt = compile_topic_pattern(<span class="string">"homes/+/+/#"</span>)
+        <pre class="example"><span class="keyword">local</span> patt = <span class="function-name">compile_topic_pattern</span>(<span class="string">"homes/+/+/#"</span>)
 
 <span class="keyword">local</span> topic = <span class="string">"homes/myhome/living/mainlights/brightness"</span>
-<span class="keyword">local</span> homeid, roomid, varargs = topic:match(patt)</pre>
+<span class="keyword">local</span> homeid, roomid, varargs = topic:<span class="function-name">match</span>(patt)</pre>
     </ul>
 
 </dd>
@@ -308,11 +310,11 @@
         <li><span class="parameter">opts</span> parsing options table
         <ul>
         <li><span class="parameter">topic</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
          the wild-carded topic to match against (optional if <code>opts.pattern</code> is given)
         </li>
         <li><span class="parameter">pattern</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
          the compiled pattern for the wild-carded topic (optional if <code>opts.topic</code>
    is given). If not given then topic will be compiled and the result will be
    stored in this field for future use (cache).
@@ -328,7 +330,7 @@
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
          <code>fields</code>: the array part will have the values of the wildcards, in
    the order they appeared. The hash part, will have the field names provided
    in <code>opts.keys</code>, with the values of the corresponding wildcard. If a <code>#</code>
@@ -358,7 +360,7 @@
   topic = <span class="string">"homes/+/+/#"</span>,
   keys = { <span class="string">"homeid"</span>, <span class="string">"roomid"</span>, <span class="string">"varargs"</span>},
 }
-<span class="keyword">local</span> fields, varargst = topic_match(<span class="string">"homes/myhome/living/mainlights/brightness"</span>, opts)
+<span class="keyword">local</span> fields, varargst = <span class="function-name">topic_match</span>(<span class="string">"homes/myhome/living/mainlights/brightness"</span>, opts)
 
 <span class="global">print</span>(fields[<span class="number">1</span>], fields.homeid)  <span class="comment">-- "myhome myhome"
 </span><span class="global">print</span>(fields[<span class="number">2</span>], fields.roomid)  <span class="comment">-- "living living"
@@ -392,7 +394,7 @@
           MQTT v5.0   protocol version constant
         </li>
         <li><span class="parameter">_VERSION</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
          luamqtt library version string
         </li>
     </ul>
@@ -405,7 +407,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"><span class="keyword">local</span> client = mqtt.client {
+        <pre class="example"><span class="keyword">local</span> client = mqtt.<span class="function-name">client</span> {
 	uri = <span class="string">"mqtts://aladdin:soopersecret@mqttbroker.com"</span>,
 	clean = <span class="keyword">true</span>,
 	version = mqtt.v50,	<span class="comment">-- specify constant for MQTT version
@@ -419,8 +421,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-07-20 16:24:32 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

@@ -26,6 +26,7 @@
 <br/>
 <h1>luamqtt</h1>
 
+
 <ul>
   <li><a href="../index.html">Index</a></li>
 </ul>
@@ -34,13 +35,14 @@
 
 <h2>Topics</h2>
 <ul class="">
-  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/README.md.html">This is a fork of LuaMQTT</a></li>
   <li><a href="../topics/LICENSE.html">MIT License</a></li>
   <li><a href="../topics/01-installation.md.html">Installation</a></li>
   <li><strong>Dependencies</strong></li>
   <li><a href="../topics/03-lua_versions.md.html">Lua versions</a></li>
   <li><a href="../topics/04-mqtt_versions.md.html">MQTT versions</a></li>
   <li><a href="../topics/05-connectors.md.html">Connectors</a></li>
+  <li><a href="../topics/README.md.html">Short documentation topics</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -78,56 +80,61 @@
 
 <ul>
     <li><a href="https://luarocks.org/modules/luasocket/luasocket"><strong>luasocket</strong></a> to establish TCP connections to the MQTT broker.
-This is a listed dependency in the luamqtt rockspec, so it will automatically be installed if you use LuaRocks to
-install luamqtt. To install it manually:
+    This is a listed dependency in the luamqtt rockspec, so it will automatically be installed if you use LuaRocks to
+    install luamqtt. To install it manually:</li>
+</ul>
+
 
 <pre>
 luarocks install luasocket
 </pre>
-</li>
-    <li><a href="https://github.com/keplerproject/copas"><strong>copas</strong></a> module for asynchoneous IO. Copas is an advanced co-routine
-scheduler with far more features than the included <code>ioloop</code>. For anything more than a few devices, or for devices which
-require network IO beyond mqtt alone, Copas is the better alternative. Copas is also pure-Lua, but has parallel network
-IO (as opposed to sequential network IO in <code>ioloop</code>), and has features like; threads, timers, locks, semaphores, and
-non-blocking clients for http(s), (s)ftp, and smtp.
+
+<p>* <em>[optional dependency]</em> <a href="https://github.com/keplerproject/copas"><strong>copas</strong></a> module for asynchoneous IO. Copas is an advanced co-routine
+  scheduler with far more features than the included <code>ioloop</code>. For anything more than a few devices, or for devices which
+  require network IO beyond mqtt alone, Copas is the better alternative. Copas is also pure-Lua, but has parallel network
+  IO (as opposed to sequential network IO in <code>ioloop</code>), and has features like; threads, timers, locks, semaphores, and
+  non-blocking clients for http(s), (s)ftp, and smtp.</p>
+
 
 <pre>
 luarocks install copas
 </pre>
-</li>
-    <li><a href="https://github.com/brunoos/luasec"><strong>luasec</strong></a> module for SSL/TLS based connections. This is optional and may be
-skipped if you don't need secure network connections (e.g. broker is located in your local network). It's not listed
-in package dependencies, please install it manually like this:
+
+<p>* <em>[optional dependency]</em> <a href="https://github.com/brunoos/luasec"><strong>luasec</strong></a> module for SSL/TLS based connections. This is optional and may be
+  skipped if you don't need secure network connections (e.g. broker is located in your local network). It's not listed
+  in package dependencies, please install it manually like this:</p>
+
 
 <pre>
 luarocks install luasec
 </pre>
-</li>
-    <li><a href="http://bitop.luajit.org/"><strong>LuaBitOp</strong></a> library to perform bitwise operations, which is required only on
-Lua 5.1. It's not listed in package dependencies, please install it manually like this:
+
+<p>* <em>[optional dependency]</em> <a href="http://bitop.luajit.org/"><strong>LuaBitOp</strong></a> library to perform bitwise operations, which is required only on
+  Lua 5.1. It's not listed in package dependencies, please install it manually like this:</p>
+
 
 <pre>
 luarocks install luabitop
 </pre>
-</li>
-    <li><a href="https://github.com/lunarmodules/lualogging/"><strong>LuaLogging</strong></a> to enable logging by the MQTT client. This is optional
-but highly recommended for long running clients. This is a great debugging aid when developing your clients. Also when
-using OpenResty as your runtime, you'll definitely want to use this, see
-<a href="https://xhaskx.github.io/luamqtt/examples/openresty.lua.html">openresty.lua</a> for an example.
-It's not listed in package dependencies, please install it manually like this:
+
+<p>* <em>[optional dependency]</em> <a href="https://github.com/lunarmodules/lualogging/"><strong>LuaLogging</strong></a> to enable logging by the MQTT client. This is optional
+  but highly recommended for long running clients. This is a great debugging aid when developing your clients. Also when
+  using OpenResty as your runtime, you'll definitely want to use this, see
+  <a href="../examples/openresty/app/openresty.lua">openresty.lua</a> for an example.
+  It's not listed in package dependencies, please install it manually like this:</p>
+
 
 <pre>
 luarocks install lualogging
 </pre>
-</li>
-</ul>
+
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2023-12-05 15:37:24 </i>
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-07-20 16:24:32 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
