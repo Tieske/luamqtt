@@ -11,7 +11,7 @@ local const = {
 	v50 = 5,		-- supported protocol version, MQTT v5.0
 
 	-- luamqtt library version string
-	_VERSION = "1.0.1",
+	_VERSION = "1.0.2",
 }
 
 return const
