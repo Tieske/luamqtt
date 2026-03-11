@@ -83,6 +83,7 @@ function connector:send(data)
 	if not time then
 		return nil, "failed acquiring send_lock: "..tostring(err)
 	end
+	log:debug("[mqtt.connector.copas] send_lock acquired by %s", copas.getthreadname())
 	if time > 1 then
 		log:warn("[mqtt.connector.copas] send_lock wait time above 1 second: %s seconds", time)
 	end
@@ -91,10 +92,12 @@ function connector:send(data)
 	while i < #data do
 		i, err = sock:send(data, i)
 		if not i then
+			log:debug("[mqtt.connector.copas] send_lock released after error by %s: %s", copas.getthreadname(), tostring(err))
 			lock:release()
 			return false, err
 		end
 	end
+	log:debug("[mqtt.connector.copas] send_lock released after send by %s", copas.getthreadname())
 	lock:release()
 	return true
 end
