@@ -81,7 +81,8 @@ function connector:send(data)
 
 	local time, err = lock:get()
 	if not time then
-		return nil, "failed acquiring send_lock: "..tostring(err)
+		local owner = lock.owner and copas.getthreadname(lock.owner) or "n.a."
+		return nil, "failed acquiring send_lock: " .. tostring(err) .. " current owner: " .. owner
 	end
 	log:debug("[mqtt.connector.copas] send_lock acquired by %s", copas.getthreadname())
 	if time > 1 then
