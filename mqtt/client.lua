@@ -145,6 +145,16 @@ function Client:__init(opts)
 		elseif key == "on" then
 			assert(value_type == "table", "expecting 'on' to be a table with events and callbacks")
 			a.on = value
+		elseif key == "protocol" then
+			assert(value_type == "string", "expecting 'protocol' to be a string")
+			assert(value == "mqtt" or value == "mqtts", "expecting 'protocol' to be either 'mqtt' or 'mqtts'")
+			a.protocol = value
+		elseif key == "host" then
+			assert(value_type == "string", "expecting 'host' to be a string")
+			a.host = value
+		elseif key == "port" then
+			assert(value_type == "number", "expecting 'port' to be a number")
+			a.port = value
 		else
 			error("unexpected key in client opts: "..key.." = "..tostring(value))
 		end
